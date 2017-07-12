@@ -1,0 +1,55 @@
+{
+  "generator-cat": {
+    "promptValues": {
+      "authorName": "HsuTing",
+      "authorEmail": "hsuting0106@gmail.com",
+      "authorUrl": "http://hsuting.com",
+      "website": true,
+      "chooseType": "docs",
+      "graphql": false,
+      "plugins": [
+        "time tracker"
+      ],
+      "subject": "Poll",
+      "url": "http://hsuting.github.io/poll/",
+      "otherSettings": [
+        "firebase"
+      ],
+      "firebase-firebase_version": "4.1.3",
+      "firebase-apiKey": "AIzaSyC7-9u63Fsp7qADJLwXp4P2I-6L1itgKac",
+      "firebase-authDomain": "poll-a4d59.firebaseapp.com",
+      "firebase-databaseURL": "https://poll-a4d59.firebaseio.com",
+      "firebase-projectId": "poll-a4d59",
+      "firebase-storageBucket": "poll-a4d59.appspot.com",
+      "firebase-messagingSenderId": "335787262353"
+    },
+    "plugins": [
+      "time tracker",
+      "docs",
+      "react"
+    ],
+    "alias": {
+      "public": "public",
+      "components": "components",
+      "componentsShare": "components/share",
+      "utils": "utils"
+    },
+    "template": {
+      "subject": "Poll",
+      "url": "http://hsuting.github.io/poll/",
+      "otherSettings": [
+        "firebase"
+      ],
+      "firebase": {
+        "firebase_version": "4.1.3",
+        "apiKey": "AIzaSyC7-9u63Fsp7qADJLwXp4P2I-6L1itgKac",
+        "authDomain": "poll-a4d59.firebaseapp.com",
+        "databaseURL": "https://poll-a4d59.firebaseio.com",
+        "projectId": "poll-a4d59",
+        "storageBucket": "poll-a4d59.appspot.com",
+        "messagingSenderId": "335787262353"
+      }
+    },
+    "cat": true
+  }
+}
