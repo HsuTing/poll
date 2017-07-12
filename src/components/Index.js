@@ -28,9 +28,9 @@ class Index extends React.Component {
     const provider = new firebase.auth.FacebookAuthProvider();
 
     try {
-      const {credential, user} = await firebase.auth().signInWithPopup(provider)
+      const {credential, user} = await firebase.auth().signInWithPopup(provider);
       const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
-      const {choice, info} = snapshot.val();
+      const {choice, info} = snapshot.val() || {choice: {}, info: {}};
 
       this.setState({
         token: credential.accessToken,
