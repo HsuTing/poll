@@ -5,7 +5,8 @@ import React from 'react';
 import radium, {StyleRoot} from 'radium';
 import Wrapper from 'cat-components/lib/Wrapper';
 import CalendarTable from 'cat-components/lib/CalendarTable';
-import console from 'cat-utils/lib/console';
+//TODO
+//import console from 'cat-utils/lib/console';
 
 import Normalize from 'componentsShare/Normalize';
 
