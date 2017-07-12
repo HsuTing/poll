@@ -8,6 +8,8 @@ import Square from 'cat-components/lib/Square';
 
 import style from './style/calendarTableCell'
 
+// TODO modify show
+
 @radium
 export default class CalendarTableCell extends React.Component {
   static propTypes = {
@@ -50,6 +52,9 @@ export default class CalendarTableCell extends React.Component {
       <div style={newStyle}
         onClick={this.toggleChoice}
       >
+        <div style={style.text}
+        >{date}</div>
+
         <Square>
           <div>
             {
@@ -59,16 +64,17 @@ export default class CalendarTableCell extends React.Component {
             }
           </div>
         </Square>
-
-        <div style={style.text}
-        >{date}</div>
       </div>
     );
   }
 
   toggleChoice() {
-    const {user, month, date} = this.props;
+    const {user, month, date, sameMonth} = this.props;
     const {isChosen} = this.state;
+
+    if(!user || !sameMonth)
+      return;
+
     const {uid, displayName, email, photoURL} = user;
 
     firebase.database().ref(`${uid}/info`).update({
