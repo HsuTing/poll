@@ -1,32 +1,58 @@
 'use strict';
 
+import 'babel-polyfill';
 import React from 'react';
-import radium from 'radium';
+import radium, {StyleRoot} from 'radium';
 import Wrapper from 'cat-components/lib/Wrapper';
+import CalendarTable from 'cat-components/lib/CalendarTable';
+import console from 'cat-utils/lib/console';
 
 import Normalize from 'componentsShare/Normalize';
 
+import CalendarTableCell from './CalendarTableCell';
+import style from './style/index';
+
 @radium
 class Index extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      token: null,
+      user: null,
+      choice: {},
+      info: {}
+    };
+  }
+
+  async componentDidMount() {
     const provider = new firebase.auth.FacebookAuthProvider();
 
-    firebase.auth().signInWithPopup(provider)
-      .then(result => {
-        const token = result.credential.accessToken;
-        const user = result.user;
-        console.log(token, user);
-      })
-      .catch(error => console.log(error));
+    try {
+      const {credential, user} = await firebase.auth().signInWithPopup(provider)
+      const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
+      const {choice, info} = snapshot.val();
+
+      this.setState({
+        token: credential.accessToken,
+        user,
+        choice,
+        info
+      });
+    } catch(err) {
+      console.log(err);
+    }
   }
 
   render() {
     return (
-      <div>
+      <StyleRoot style={style.root}>
         <Normalize />
 
-        This is Index!
-      </div>
+        <CalendarTable month={7}>
+          <CalendarTableCell {...this.state}
+          />
+        </CalendarTable>
+      </StyleRoot>
     );
   }
 }
