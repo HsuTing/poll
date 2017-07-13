@@ -3,7 +3,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import radium, {StyleRoot} from 'radium';
-import ReactMarkdown from 'react-markdown';
+import Markdown from 'react-markdown';
 import moment from 'moment';
 import Wrapper from 'cat-components/lib/Wrapper';
 import CalendarTable from 'cat-components/lib/CalendarTable';
@@ -84,7 +84,7 @@ class Index extends React.Component {
       <StyleRoot style={style.root}>
         <Normalize />
 
-        <ReactMarkdown source={intro} />
+        <Markdown source={intro} />
 
         <br />
         <br />
