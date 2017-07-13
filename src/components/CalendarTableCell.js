@@ -17,7 +17,8 @@ export default class CalendarTableCell extends React.Component {
     date: PropTypes.number,
     sameMonth: PropTypes.bool,
     user: PropTypes.object,
-    choice: PropTypes.object
+    choice: PropTypes.object,
+    update: PropTypes.func.isRequired
   }
 
   constructor(props) {
@@ -69,23 +70,25 @@ export default class CalendarTableCell extends React.Component {
   }
 
   toggleChoice() {
-    const {user, month, date, sameMonth} = this.props;
+    const {user, month, date, sameMonth, update} = this.props;
     const {isChosen} = this.state;
 
     if(!user || !sameMonth)
       return;
 
     const {uid, displayName, email, photoURL} = user;
-
-    firebase.database().ref(`${uid}/info`).update({
+    const userData = {
       username: displayName,
       email,
       img: photoURL
-    });
+    };
+
+    firebase.database().ref(`${uid}/info`).update(userData);
     firebase.database().ref(`${uid}/choice/${month + 1}-${date}`).update({
       isChosen: !isChosen
     });
 
+    update(`${month + 1}-${date}`, userData, !isChosen);
     this.setState({isChosen: !isChosen});
   }
 }

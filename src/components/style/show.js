@@ -16,7 +16,7 @@ export default {
     margin: '10px 0px'
   },
 
-  count: {
+  statistics: {
     margin: '0px 0px 0px 15px',
     fontSize: '12px'
   },
