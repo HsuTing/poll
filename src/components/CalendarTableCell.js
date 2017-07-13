@@ -74,19 +74,16 @@ export default class CalendarTableCell extends React.Component {
     if(!user || !sameMonth)
       return;
 
-    const {uid, displayName, email, photoURL} = user;
-    const userData = {
-      username: displayName,
-      email,
-      img: photoURL
-    };
+    const {uid, displayName, photoURL} = user;
 
-    firebase.database().ref(`${uid}/info`).update(userData);
     firebase.database().ref(`${uid}/choice/${month + 1}-${date}`).update({
       isChosen: !isChosen
     });
 
-    update(`${month + 1}-${date}`, userData, !isChosen);
+    update(`${month + 1}-${date}`, {
+      username: displayName,
+      img: photoURL
+    }, !isChosen);
     this.setState({isChosen: !isChosen});
   }
 }

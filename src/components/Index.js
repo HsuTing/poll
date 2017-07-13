@@ -52,6 +52,12 @@ class Index extends React.Component {
         else {
           const result = await firebase.auth().signInWithPopup(provider);
           user = result.user;
+
+          const {uid, displayName, photoURL} = user;
+          firebase.database().ref(`${uid}/info`).update({
+            username: displayName,
+            img: photoURL
+          });
         }
 
         const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
