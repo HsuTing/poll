@@ -8,8 +8,6 @@ import Square from 'cat-components/lib/Square';
 
 import style from './style/calendarTableCell'
 
-// TODO modify show
-
 @radium
 export default class CalendarTableCell extends React.Component {
   static propTypes = {

@@ -12,6 +12,7 @@ import console from 'cat-utils/lib/console';
 import Normalize from 'componentsShare/Normalize';
 
 import CalendarTableCell from './CalendarTableCell';
+import Chatroom from './Chatroom';
 import Show from './Show';
 import style from './style/index';
 import calendarTableCellStyle from './style/calendarTableCell';
@@ -101,7 +102,15 @@ class Index extends React.Component {
         <br />
         <br />
 
-        <Show data={data} />
+        <div style={style.grid}>
+          <StyleRoot style={style.col}>
+            <Show data={data} />
+          </StyleRoot>
+
+          <StyleRoot style={style.col}>
+            <Chatroom {...this.state} />
+          </StyleRoot>
+        </div>
       </StyleRoot>
     );
   }
@@ -125,6 +134,9 @@ class Index extends React.Component {
     let total = 0;
 
     snapshot.forEach(childSnapshot => {
+      if(childSnapshot.key === 'chatroom')
+        return;
+
       const {choice, info} = childSnapshot.val();
       total = total + 1;
 

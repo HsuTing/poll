@@ -26,5 +26,20 @@ export default {
       fontWeight: 'bold',
       border: '0px'
     }
+  },
+
+  grid: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    width: '100%'
+  },
+
+  col: {
+    width: 'calc(50% - 20px * 2)',
+    padding: '0px 20px',
+
+    '@media (max-width:479px)': {
+      width: 'calc(100% - 20px * 2)'
+    }
   }
 };
