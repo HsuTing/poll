@@ -31,8 +31,8 @@ export default class Chatroom extends React.Component {
   }
 
   async componentDidMount() {
-    const snapshot = await firebase.database().ref('chatroom').once('value');
-    this.setState({messages: [...snapshot.val()].reverse()});
+    const snapshot = await firebase.database().ref('/chatroom').once('value');
+    this.setState({messages: [...(snapshot.val() || [])].reverse()});
   }
 
   render() {

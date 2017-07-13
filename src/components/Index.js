@@ -61,12 +61,12 @@ class Index extends React.Component {
         }
 
         const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
-        const {choice, info} = snapshot.val() || {choice: {}, info: {}};
+        const {choice, info} = snapshot.val();
         const {data, total} = await this.getFirebaseDate();
 
         this.setState({
           user,
-          choice,
+          choice: choice || {},
           info,
           data,
           total
@@ -146,7 +146,7 @@ class Index extends React.Component {
       const {choice, info} = childSnapshot.val();
       total = total + 1;
 
-      Object.keys(choice).forEach(key => {
+      Object.keys(choice || {}).forEach(key => {
         if(choice[key].isChosen) {
           data[key].count = data[key].count + 1;
           data[key].users.push(info);
