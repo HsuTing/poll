@@ -7,12 +7,11 @@
       "website": true,
       "chooseType": "docs",
       "graphql": false,
-      "plugins": [
-        "time tracker"
-      ],
+      "plugins": [],
       "subject": "Poll",
       "url": "http://hsuting.github.io/poll/",
       "otherSettings": [
+        "facebook",
         "firebase"
       ],
       "firebase-firebase_version": "4.1.3",
@@ -21,10 +20,10 @@
       "firebase-databaseURL": "https://poll-a4d59.firebaseio.com",
       "firebase-projectId": "poll-a4d59",
       "firebase-storageBucket": "poll-a4d59.appspot.com",
-      "firebase-messagingSenderId": "335787262353"
+      "firebase-messagingSenderId": "335787262353",
+      "facebook-app_id": "1454926414528018"
     },
     "plugins": [
-      "time tracker",
       "docs",
       "react"
     ],
@@ -38,6 +37,7 @@
       "subject": "Poll",
       "url": "http://hsuting.github.io/poll/",
       "otherSettings": [
+        "facebook",
         "firebase"
       ],
       "firebase": {
@@ -48,6 +48,9 @@
         "projectId": "poll-a4d59",
         "storageBucket": "poll-a4d59.appspot.com",
         "messagingSenderId": "335787262353"
+      },
+      "facebook": {
+        "app_id": "1454926414528018"
       }
     },
     "cat": true

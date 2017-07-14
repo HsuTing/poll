@@ -2,7 +2,7 @@
 {% set title='poll' -%}
 {% set description='Poll' -%}
 {% set subject='Poll' -%}
-{% set url='https://hsuting.github.io/poll/' -%}
+{% set url='http://hsuting.github.io/poll/' -%}
 {% set iconUrl='https://hsuting.github.io/' -%}
 <!DOCTYPE html>
 <html>
@@ -22,6 +22,15 @@
     <meta http-equiv="Window-Target" content="_value">
     <meta name="robots" content="index,follow,noodp">
     <meta name="googlebot" content="index,follow">
+
+{# setting of facebook -#}
+<meta property="fb:app_id" content="1454926414528018">
+<meta property="og:url" content="{{ url }}">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:image" content="{{ iconUrl }}public/favicon/android-icon-192x192.png">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:site_name" content="{{ title }}">
 
 
      <title>{{ title }}</title>
