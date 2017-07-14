@@ -2,12 +2,13 @@
 
 import 'babel-polyfill';
 import React from 'react';
+import PropTypes from 'prop-types';
 import radium, {StyleRoot} from 'radium';
 import Markdown from 'react-markdown';
 import moment from 'moment';
 import Wrapper from 'cat-components/lib/Wrapper';
 import CalendarTable from 'cat-components/lib/CalendarTable';
-import console from 'cat-utils/lib/console';
+import Loading from 'cat-components/lib/Loading';
 
 import Normalize from 'componentsShare/Normalize';
 
@@ -26,14 +27,18 @@ const intro = `
 
 @radium
 class Index extends React.Component {
+  static propTypes = {
+    user: PropTypes.object
+  }
+
   constructor(props) {
     super(props);
     this.state = {
-      user: null,
       choice: {},
       info: {},
       data: this.getDefaultData(),
-      total: 0
+      total: 0,
+      loading: true
     };
 
     this.getFirebaseDate = this.getFirebaseDate.bind(this);
@@ -41,43 +46,30 @@ class Index extends React.Component {
     this.update = this.update.bind(this);
   }
 
-  componentDidMount() {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    let user = null;
+  async componentDidMount() {
+    const {user} = this.props;
 
-    firebase.auth().onAuthStateChanged(async currentUser => {
-      try {
-        if(currentUser)
-          user = currentUser;
-        else {
-          const result = await firebase.auth().signInWithPopup(provider);
-          user = result.user;
+    const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
+    const {choice, info} = snapshot.val();
+    const {data, total} = await this.getFirebaseDate();
 
-          const {uid, displayName, photoURL} = user;
-          firebase.database().ref(`${uid}/info`).update({
-            username: displayName,
-            img: photoURL
-          });
-        }
-
-        const snapshot = await firebase.database().ref(`${user.uid}`).once('value');
-        const {choice, info} = snapshot.val();
-        const {data, total} = await this.getFirebaseDate();
-
-        this.setState({
-          user,
-          choice: choice || {},
-          info,
-          data,
-          total
-        });
-      } catch(err) {
-        console.log(err);
-      }
+    this.setState({
+      choice: choice || {},
+      info,
+      data,
+      total,
+      loading: false
     });
   }
 
   render() {
+    const {loading} = this.state;
+
+    if(loading)
+      return (
+        <Loading />
+      );
+
     const data = this.transformData();
 
     return (
@@ -101,6 +93,7 @@ class Index extends React.Component {
 
         <CalendarTable month={pollMonth}>
           <CalendarTableCell {...this.state}
+            {...this.props}
             update={this.update}
           />
         </CalendarTable>
@@ -114,7 +107,9 @@ class Index extends React.Component {
           </StyleRoot>
 
           <StyleRoot style={style.col}>
-            <Chatroom {...this.state} />
+            <Chatroom {...this.state}
+              {...this.props}
+            />
           </StyleRoot>
         </div>
       </StyleRoot>
@@ -186,7 +181,7 @@ class Index extends React.Component {
     }
     else {
       data[key].count = data[key].count - 1;
-      data[key].users = [...data[key].users].filter(dataUser => dataUser.email !== user.email);
+      data[key].users = [...data[key].users].filter(dataUser => dataUser.username !== user.username);
     }
 
     this.setState({data});
@@ -194,9 +189,9 @@ class Index extends React.Component {
 }
 
 /* eslint-disable react/display-name, react/prop-types */
-export default ({radiumConfig}) => (
+export default ({radiumConfig, ...props}) => (
   <Wrapper radiumConfig={radiumConfig}>
-    <Index />
+    <Index {...props} />
   </Wrapper>
 );
 /* eslint-enable react/display-name, react/prop-types */

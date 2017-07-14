@@ -21,19 +21,15 @@ export default class CalendarTableCell extends React.Component {
 
   constructor(props) {
     super(props);
+
+    const {month, date, choice} = props;
+    const key = `${month + 1}-${date}`;
+
     this.state = {
-      isChosen: false
+      isChosen: (choice[key] || {}).isChosen || false
     };
 
     this.toggleChoice = this.toggleChoice.bind(this);
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const {month, date} = this.props;
-    const key = `${month + 1}-${date}`;
-
-    if((nextProps.choice[key] || {}).isChosen !== (this.props.choice[key] || {}).isChosen)
-      this.setState({isChosen: nextProps.choice[key].isChosen});
   }
 
   render() {

@@ -14,7 +14,6 @@ export default class Show extends React.Component {
       date: PropTypes.string.isRequired,
       statistics: PropTypes.string.isRequired,
       users: PropTypes.arrayOf(PropTypes.shape({
-        email: PropTypes.string.isRequired,
         username: PropTypes.string.isRequired,
         img: PropTypes.string.isRequired
       })).isRequired
